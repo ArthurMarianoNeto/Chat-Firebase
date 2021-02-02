@@ -15,9 +15,19 @@ void main() async {
   print(d.data);
   });
 */
+/*
   DocumentSnapshot snapshot = await Firestore.instance.collection("mensagens")
       .document("qkpgBhmn7dAKp4J8xEf1").get();
-      print(snapshot.data);
+   print(snapshot.data);
+*/
+
+  Firestore.instance.collection("mensagens").snapshots().listen((dado){
+    dado.documents.forEach((d){
+    print(d.data);
+    });
+  });
+
+
 }
 
 class MyApp extends StatelessWidget {
