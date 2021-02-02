@@ -10,11 +10,16 @@ void main() async {
       "read": false
     });
 */
-  QuerySnapshot snapshot = await Firestore.instance.collection("mensagens").getDocuments();
+/*  QuerySnapshot snapshot = await Firestore.instance.collection("mensagens").getDocuments();
   snapshot.documents.forEach((d){
   print(d.data);
   });
+*/
+  DocumentSnapshot snapshot = await Firestore.instance.collection("mensagens")
+      .document("qkpgBhmn7dAKp4J8xEf1").get();
+      print(snapshot.data);
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
