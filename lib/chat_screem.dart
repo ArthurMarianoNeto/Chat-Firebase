@@ -12,7 +12,7 @@ class ChatScreem extends StatefulWidget {
 
 class _ChatScreemState extends State<ChatScreem> {
 
-  void _senMassage({String text, File imgFile}) async{
+  void _sendMenssage({String text, File imgFile}) async{
 
     //Map<String, dynamic> = data {};
     Map<String, dynamic> data = {};
@@ -38,14 +38,14 @@ class _ChatScreemState extends State<ChatScreem> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Olá"),
+        title: Text("Chat Firebase / Flutter"),
         elevation: 0,
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection('menssages').snapshots(),
+                stream: Firestore.instance.collection('messages').snapshots(),
                 builder: (context, snapshot){
                   switch(snapshot.connectionState){
                     case ConnectionState.none:
@@ -63,14 +63,14 @@ class _ChatScreemState extends State<ChatScreem> {
                     return ListTile(
                     title: Text(documents[index].data["text"]),
                     );
-                  }
+                   }
                   );
 
                   }
                 },
               ),
           ),
-          TextComposer(_senMassage),
+          TextComposer(_sendMenssage),
         ],
       ),
     );
