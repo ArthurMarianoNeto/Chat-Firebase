@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/src/widgets/text.dart';
+import 'package:flutter/src/widgets/sliver.dart';
+
 
 class TextComposer extends StatefulWidget {
 
