@@ -24,12 +24,12 @@ class _ChatScreemState extends State<ChatScreem> {
 
       StorageTaskSnapshot taskSnapshot = await task.onComplete;
       String url = await taskSnapshot.ref.getDownloadURL();
-      print(url);
+//      print(url);
+      data["imgUrl"] = url;
     }
 
-    Firestore.instance.collection("messages").add({
-      "text": text
-    });
+    if(text != null) data["text"] = text;
+    Firestore.instance.collection("messages").add(data);
   }
 
 
@@ -41,7 +41,38 @@ class _ChatScreemState extends State<ChatScreem> {
         title: Text("Olá"),
         elevation: 0,
       ),
-      body: TextComposer(_senMassage),
+      body: Column(
+        children: [
+          Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance.collection('menssages').snapshots(),
+                builder: (context, snapshot){
+                  switch(snapshot.connectionState){
+                    case ConnectionState.none:
+                      case ConnectionState.waiting:
+                    return Center(
+                      child: CircularProgressIndicator(),
+                      );
+                    default:
+                      List<DocumentSnapshot> documents =
+                          snapshot.data.documents.reversed.toList();
+                 return ListView.builder(
+                  itemCount: documents.length,
+                  reverse: true,
+                  itemBuilder: (context, index){
+                    return ListTile(
+                    title: Text(documents[index].data["text"]),
+                    );
+                  }
+                  );
+
+                  }
+                },
+              ),
+          ),
+          TextComposer(_senMassage),
+        ],
+      ),
     );
   }
 }
