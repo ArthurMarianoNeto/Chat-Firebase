@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TextComposer extends StatefulWidget {
 
@@ -16,6 +17,13 @@ class _TextComposerState extends State<TextComposer> {
 
   bool _isComposing = false;
 
+  void _reset(){
+    _controller.clear();
+    setState(() {
+      _isComposing = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,8 +31,9 @@ class _TextComposerState extends State<TextComposer> {
       child: Row(
         children: [
           IconButton(
-              icon: Icon(Icons.add_a_photo_outlined), onPressed: (){
-
+              icon: Icon(Icons.add_a_photo_outlined),
+            onPressed: (){
+            ImagePicker.pickImage(source: ImageSource.camera);
           },
           ),
           Expanded(
@@ -38,14 +47,16 @@ class _TextComposerState extends State<TextComposer> {
               },
               onSubmitted: (text){
                   widget.sendMenssage(text);
-
+                  _reset();
               },
             ),
           ),
           IconButton(
-              icon: Icon(Icons.send, color: Colors.deepOrange,),
+              icon: Icon(Icons.send, // color: Colors.deepOrange,
+              ),
               onPressed: _isComposing ? (){
                 widget.sendMenssage(_controller.text);
+                _reset();
               } : null,
           ),
         ],
