@@ -15,7 +15,7 @@ class ChatScreem extends StatefulWidget {
 class _ChatScreemState extends State<ChatScreem> {
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  final GlobalKey<Scaffold> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   FirebaseUser _currentUser;
 
@@ -43,7 +43,7 @@ class _ChatScreemState extends State<ChatScreem> {
         final AuthResult authResult =
           await FirebaseAuth.instance.signInWithCredential(credential);
 
-        final Firebase user = authResult.user;
+        final FirebaseUser user = authResult.user;
 
         return user;
 
